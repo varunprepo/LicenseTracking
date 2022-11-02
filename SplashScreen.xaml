@@ -1,0 +1,13 @@
+﻿<Window x:Class="LicenseTracking.SplashScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="SplashScreen" Height="300" Width="462.791" ResizeMode="NoResize" WindowStyle="None" 
+        WindowStartupLocation="CenterScreen" BorderThickness="5" BorderBrush="AliceBlue">
+    <Grid>
+
+
+        <Image Name="logo" Source="/Images/Asghal New Logo.jpg" Margin="151,21,160,148"/>
+        <Label x:Name="lblTitle" Content="License Tracking Application" HorizontalAlignment="Left" Margin="79,167,0,0" VerticalAlignment="Top" Width="289" FontSize="22" FontFamily="Arial"/>
+
+    </Grid>
+</Window>

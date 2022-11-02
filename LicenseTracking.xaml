@@ -1,0 +1,212 @@
+﻿<Window x:Class="LicenseTracking.LicenseTracking"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"                
+        Title="License Tracking" Height="906.978" Width="1255.067" ResizeMode="CanMinimize" Background="#FFEAE7E7">
+
+    <!--<Window.Resources> xmlns:converters="clr-namespace:LicenseTracking.Converters" 
+        <converters:BrushConverter x:Key="BrushConverter" />
+    </Window.Resources>-->
+    <DockPanel Margin="0,0,4,2">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="License Tracking">
+                <MenuItem Header="_View Existing Licenses" Click="ShowLicensesInfo_Click"/>
+                <MenuItem Header="_Search Licenses" Click="ShowSearch_Click"/>
+                <MenuItem x:Name="addNewLicMenuItem" Header="_Add New License Info" Click="AddLicenseInfo_Click" />
+                <Separator />
+                <MenuItem Header="_Logout" Click="Logout_Click"/>
+            </MenuItem>
+            <MenuItem x:Name="usersMenu" Header="Administrator">
+                <MenuItem Header="_Assign License To User" Click="AddUserLicenseInfo_Click"/>
+                <MenuItem Header="_Create New Users" Click="CreateNewUsers_Click"/>
+                <MenuItem Header="_View Existing Users" Click="ViewUsers_Click"/>
+                <MenuItem Header="_Settings" Click="Settings_Click"/>
+            </MenuItem>
+            <MenuItem x:Name="reportMenu" Header="Report">
+                <MenuItem Header="_Report" Click="ViewReport_Click"/>
+            </MenuItem>
+        </Menu>
+
+        <Grid HorizontalAlignment="Left" Height="685" Margin="27,112,0,0" VerticalAlignment="Top" Width="1197">
+
+            <Image Name="logo1" Source="/Images/Asghal New Logo.jpg" Margin="256,-95,824,693"/>
+            <Label Content="License Tracking Application" HorizontalAlignment="Left" Margin="423,-48,0,0" VerticalAlignment="Top" Width="312" FontFamily="Arial"  FontSize="22" FontWeight="Bold"/>
+            <Image Name="logo2" Source="/Images/Asghal New Logo.jpg" Margin="783,-95,297,693"/>
+            <GridSplitter HorizontalAlignment="Left" Height="684" Margin="211,0,0,0" VerticalAlignment="Top" Width="10"/>
+
+            <DataGrid x:Name="dgLicenses" HorizontalAlignment="Left" Margin="226,194,-9,0" VerticalAlignment="Top" Height="289" Width="968" RowHeaderWidth="0" AutoGenerateColumns="False" FontFamily="Arial">
+
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="FontWeight" Value="Bold" />
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.Header>
+                            <CheckBox Name="chkBoxHeader" Checked="CheckBox_Checked" Unchecked="UnheckBox_Checked"></CheckBox>
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate >
+                            <DataTemplate>
+                                <CheckBox HorizontalAlignment="Center" Name="chkBox"  />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn x:Name="image"  Header="">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <ItemContainerTemplate>
+                                <Image x:Name="licenseCheck" Source="{Binding Path=ImgPath}"></Image>
+                            </ItemContainerTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridHyperlinkColumn x:Name="colViewUsers" Header="View Users" Binding="{Binding hpLnkToViewUsers}" >
+                        <DataGridHyperlinkColumn.ElementStyle>
+                            <Style>
+                                <EventSetter Event="Hyperlink.Click" Handler="HpLnkToViewUsers_Click"/>
+                            </Style>
+                        </DataGridHyperlinkColumn.ElementStyle>
+                    </DataGridHyperlinkColumn>
+                    <DataGridHyperlinkColumn x:Name="colEditUsers" Header="Edit License Info" Binding="{Binding hpLnkToEditLicDetails}" >
+                        <DataGridHyperlinkColumn.ElementStyle>
+                            <Style>
+                                <EventSetter Event="Hyperlink.Click" Handler="HpLnkToEditLicenseInfo_Click"/>
+                            </Style>
+                        </DataGridHyperlinkColumn.ElementStyle>
+                    </DataGridHyperlinkColumn>
+
+                    <DataGridTextColumn x:Name="productName" Width="100" Header="Product Name" Binding="{Binding Path=ProductName}" />
+                    <DataGridTextColumn x:Name="licenseActivationDate" Width="145" Header="License Activation Date" Binding="{Binding Path=LicenseActivationDate}" />
+                    <DataGridTextColumn x:Name="licenseExpirationDate" Width="145" Header="License Expiration Date" Binding="{Binding Path=LicenseExpirationDate}" />
+                    <DataGridTextColumn x:Name="licenseTypeName" Width="118" Header="License Type Name" Binding="{Binding Path=LicenseTypeName}" />
+                    <DataGridTextColumn x:Name="noOfLicenses" Width="95" Header="No Of Licenses"  Binding="{Binding Path=NoOfLicenses}" />
+                    <DataGridTextColumn x:Name="providerName" Width="*" Header="Provider Name"  Binding="{Binding Path=ProviderName}"  />
+                    <DataGridTextColumn x:Name="productID" Width="0" Header="productID" Visibility="Hidden"  Binding="{Binding Path=productID}" />
+
+                </DataGrid.Columns>
+
+                <!--<DataGrid.RowStyle>
+                    <Style TargetType="{x:Type DataGridRow}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Converter={StaticResource BrushConverter} }" Value="#FF90EE90" >
+                                <Setter Property="TextElement.Foreground" Value="Black"/>
+                                <Setter Property="Background" Value="LightGreen"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Converter={StaticResource BrushConverter} }" Value="#FFFFFFE0" >
+                                <Setter Property="TextElement.Foreground" Value="Black"/>
+                                <Setter Property="Background" Value="LightYellow"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Converter={StaticResource BrushConverter} }" Value="#FFFF5050" >
+                                <Setter Property="TextElement.Foreground" Value="White"/>
+                                <Setter Property="Background" Value="#FFFF5050"></Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>-->
+
+
+            </DataGrid>
+            <StackPanel Orientation="Horizontal" 
+
+            HorizontalAlignment="Center" Margin="933,514,3,148" Width="261">
+                <Button Height="23" HorizontalAlignment="Left"  
+
+                Name="btnFirst" VerticalAlignment="Bottom" 
+
+                Width="40" Content="&lt;&lt;" FontSize="10" 
+
+                Click="btnFirst_Click" Opacity="0.75"/>
+                <Button Height="23"  VerticalAlignment="Bottom" 
+
+                Name="btnPrev" Width="40" Click="btnPrev_Click" 
+
+                Opacity="0.75" Content="&lt;"/>
+                <Label x:Name="lblPageInfo" 
+
+                HorizontalContentAlignment="Center" 
+
+                HorizontalAlignment="Left" Height="23" 
+
+                Width="100" VerticalContentAlignment="Center" 
+
+                VerticalAlignment="Bottom" Margin="0,-1,0,0"/>
+                <Button Height="23" HorizontalAlignment="Right" 
+
+                Name="btnNext" VerticalAlignment="Bottom" 
+
+                Width="40" Content="&gt;" 
+
+                Click="btnNext_Click" Opacity="0.75"/>
+                <Button HorizontalAlignment="Right" Width="40" 
+
+                Name="btnLast" Click="btnLast_Click" 
+
+                Opacity="0.75" Content="&gt;&gt;" Margin="0,-1,0,0"/>
+
+            </StackPanel>
+
+            <Label x:Name="lblSearch" Content="Search Licenses" HorizontalAlignment="Left" Margin="608,21,0,0" VerticalAlignment="Top" Width="162" FontFamily="Arial" FontSize="20" Visibility="Hidden" />
+            <Label x:Name="lblLicActivationDate" Content="Activation Date:" HorizontalAlignment="Left" Margin="417,72,0,0" VerticalAlignment="Top" Width="113" FontFamily="Arial" FontSize="15" Visibility="Hidden" />
+            <Button Name="btnProdSearch" Content="Search" HorizontalAlignment="Left" Margin="643,119,0,0" VerticalAlignment="Top" Width="75" FontFamily="Arial" FontSize="14" Click="btnLicSearch_Click" Visibility="Hidden"/>
+
+            <Label x:Name="lblLicExpirationDate" Content="Expiration Date:" HorizontalAlignment="Left" Margin="675,73,0,0" VerticalAlignment="Top" Width="118" FontFamily="Arial" FontSize="15" Visibility="Hidden" />
+            <ComboBox Name="cbLicenseType" FontFamily="Arial" HorizontalAlignment="Left" Margin="282,75,0,0" VerticalAlignment="Top" Width="120"  TabIndex="1" FontSize="14" Visibility="Hidden"/>
+            <Label x:Name="lblLicType" Content="Type:" HorizontalAlignment="Left" Margin="232,72,0,0" VerticalAlignment="Top" Width="48" FontFamily="Arial" FontSize="15" Visibility="Hidden"  />
+            <DatePicker Name="dpLicExpiryDate" FontFamily="Arial" FontSize="14" HorizontalAlignment="Left" Margin="797,75,0,0" VerticalAlignment="Top" Width="120" TabIndex="2" Visibility="Hidden"/>
+            <DatePicker Name="dpLicActivationDate" HorizontalAlignment="Left" Margin="532,75,0,0" VerticalAlignment="Top" Width="130"  TabIndex="3" FontFamily="Arial" FontSize="14" Visibility="Hidden"/>
+            <Button x:Name="btnDeleteLicenses" Content="Delete Licenses" HorizontalAlignment="Left" Margin="226,514,0,0" VerticalAlignment="Top" Width="135" FontFamily="Arial" FontSize="14"  Click="btnDeleteLicenses_Click"/>
+            <Button x:Name="lnkLogout" Grid.Column="0" Grid.Row="0" Content="Logout" Cursor="Hand" Click="Logout_Click" FontFamily="Arial" FontSize="15" Margin="1118,-62,6,720" TabIndex="1">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <TextBlock TextDecorations="Underline"><InlineUIContainer>
+        					<ContentPresenter />
+        				</InlineUIContainer></TextBlock>
+                    </ControlTemplate>
+                </Button.Template>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}" 
+        			BasedOn="{StaticResource ResourceKey={x:Type Button}}">
+
+                        <Setter Property="Width" Value="Auto"/>
+
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <ContentPresenter Content="{TemplateBinding Content}" 
+        							ContentTemplate="{TemplateBinding ContentTemplate}"
+        							VerticalAlignment="Center"
+                                  >
+                                        <ContentPresenter.Resources>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="TextDecorations" Value="Underline" />
+                                            </Style>
+                                        </ContentPresenter.Resources>
+                                    </ContentPresenter>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Foreground" Value="Blue" />
+                        <Setter Property="Cursor" Value="Hand" />
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Foreground" Value="Red" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Label x:Name="lblWelcome" Content="Label" HorizontalAlignment="Left" Margin="933,-62,0,0" VerticalAlignment="Top" Width="171" FontFamily="Arial" FontSize="15" FontWeight="Bold"/>
+            <Button x:Name="ShowExistingLicenses" Content="Show Existing Licenses" HorizontalAlignment="Left" Margin="15,23,0,0" VerticalAlignment="Top" Width="176" Height="51" BorderThickness="10" FontWeight="Bold" Click="ShowLicensesInfo_Click"/>
+            <Button x:Name="ShowLicensesInfo" Content="Search Licenses" HorizontalAlignment="Left" Margin="15,86,0,0" VerticalAlignment="Top" Width="176" Height="51" BorderThickness="10" Click="ShowSearch_Click" FontWeight="Bold"/>
+            <Button x:Name="AddNewLicInfo" Content="Add New License Info" HorizontalAlignment="Left" Margin="15,150,0,0" VerticalAlignment="Top" Width="176" Height="51" BorderThickness="10" Click="AddLicenseInfo_Click" FontWeight="Bold"/>
+            <Button x:Name="AssignedLicToUser" Content="Assigned License To User" HorizontalAlignment="Left" Margin="15,215,0,0" VerticalAlignment="Top" Width="176" Height="51" BorderThickness="10"  Click="AddUserLicenseInfo_Click" FontWeight="Bold"/>
+            <Button x:Name="CreateNewUsers" Content="Create New Users" HorizontalAlignment="Left" Margin="15,280,0,0" VerticalAlignment="Top" Width="176" Height="51" BorderThickness="10" Click="CreateNewUsers_Click" FontWeight="Bold"/>
+            <Button x:Name="ViewExistingUsers" Content="View Existing Users" HorizontalAlignment="Left" Margin="15,346,0,0" VerticalAlignment="Top" Width="176" Height="51" BorderThickness="10"  Click="ViewUsers_Click" FontWeight="Bold"/>
+            <Button x:Name="ViewLicRpt" Content="View Licenses Report" HorizontalAlignment="Left" Margin="15,476,0,0" VerticalAlignment="Top" Width="176" Height="51" BorderThickness="10"  Click="ViewReport_Click" FontWeight="Bold"/>
+            <Button x:Name="Settings" Content="Settings" HorizontalAlignment="Left" Margin="15,412,0,0" VerticalAlignment="Top" Width="176" Height="51" BorderThickness="10"  Click="Settings_Click" FontWeight="Bold"/>
+            <Label x:Name="lblProviderName" Content="Provider Name:" HorizontalAlignment="Left" Margin="928,72,0,0" VerticalAlignment="Top" Width="112" FontFamily="Arial" FontSize="15" Visibility="Hidden" />
+            <TextBox x:Name="txtProviderName"  HorizontalAlignment="Left" Height="23" Margin="1043,74,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
+
+        </Grid>
+    </DockPanel>
+
+</Window>
